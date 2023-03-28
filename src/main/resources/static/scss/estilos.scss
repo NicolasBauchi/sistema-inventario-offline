@@ -1,0 +1,90 @@
+@import "bootstrap/scss/bootstrap.scss";
+
+//Mis estilos:
+.hover-text {
+  color: black;
+}
+.hover-text:hover {
+  background-color: #212529;
+  border-radius: 5px;
+  color: white;
+}
+footer h5 a {
+  text-decoration: none;
+  color: cadetblue !important;
+}
+footer h5 a:hover {
+  background-color: cadetblue;
+  color: white !important;
+  border-radius: 5px;
+  padding: 10px 10px 10px 10px;
+  transition: 700ms;
+}
+footer h5:hover {
+  background-color: cadetblue;
+  color: white !important;
+  border-radius: 5px;
+  padding: 15px 10px 15px 10px;
+  transition: 700ms;
+  transition-delay: 500ms;
+}
+.tabla-nb-contenedor {
+  @media (max-width: 760px) {
+    width: 100%;
+  }
+  @media (min-width: 761px) {
+    width: 80%;
+  }
+}
+.vh-70min {
+  min-height: 70vh;
+}
+.titulo-cargados {
+  color: white;
+  font-size: 2rem;
+  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+}
+.h100px {
+  height: 100px;
+}
+.btn-eliminar {
+  @media (max-width: 760px) {
+    display: flex;
+    align-items: center;
+    img {
+      height: 16px;
+    }
+  }
+  @media (min-width: 761px) {
+    img {
+      height: 22px;
+    }
+  }
+}
+
+.tabla-nb-contenedor table tbody tr td {
+  @media (max-width: 760px) {
+    font-size: 80%;
+  }
+  @media (min-width: 761px) {
+    font-size: 20px;
+  }
+}
+
+.img-logo-nb {
+  @media (max-width: 760px) {
+    width: 100%;
+  }
+  @media (min-width: 761px) {
+    width: 300px;
+  }
+}
+
+.formulario-listas {
+  @media (max-width: 760px) {
+    width: 100%;
+  }
+  @media (min-width: 761px) {
+    width: 50%;
+  }
+}
