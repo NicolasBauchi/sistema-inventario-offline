@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/estilos.css">
+    <title>Equipos cargados - Biotrust</title>
+</head>
+
+<body class="container-fluid">
+    <header>
+        <div class="d-flex justify-content-center">
+            <a class=" py-2" href="index.html"><img src="imgs/logo.jpg" alt="Biotrust" class="img-logo-nb"></a>
+        </div>
+        <nav class="navbar navbar-expand-lg bg-white border-2 border-bottom">
+            <div class="container-fluid">
+                <button class="navbar-toggler mx-auto" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse " id="navbarTogglerDemo02">
+                    <ul class="navbar-nav mx-auto mb-2 mb-lg-0 fs-5 fw-bold">
+                        <li class="nav-item mx-auto">
+                            <a class="nav-link hover-text px-4" aria-current="page" href="index.html">Inicio</a>
+                        </li>
+                        <li class="nav-item mx-auto ">
+                            <a class="nav-link hover-text px-4" aria-current="page" href="cargados.html">Cargado</a>
+                        </li>
+                        <li class="nav-item mx-auto ">
+                            <a class="nav-link hover-text px-4" aria-current="page" href="listas.html">Actualizar
+                                Listas</a>
+                        </li>
+                        <li class="nav-item mx-auto">
+                            <button id="descargarCsv" class="btn btn-dark px-4 py-2">Descargar cargados</button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="row bg-dark d-flex align-content-start gap-4 vh-70min">
+        <div class="col-12 d-flex justify-content-center h100px">
+            <h3 class="titulo-cargados text-center pt-4">Equipos guardados <br> en el Sistema</h3>
+        </div>
+        <div class="col-12 d-flex justify-content-center m-0 p-0 ">
+            <div class="tabla-nb-contenedor">
+                <table class="table-dark table table-striped table-hover">
+                    <thead>
+                        <tr class="table-warning">
+                            <th scope="col">#</th>
+                            <th scope="col">Nº Serie</th>
+                            <th scope="col">Equipo</th>
+                            <th scope="col">Servicio</th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody id="tabla-equipos-nb">
+
+                    </tbody>
+
+                </table>
+
+            </div>
+        </div>
+        <!-- Limpieza archivos -->
+        <div class="col-12 mt-5 mb-5">
+
+            <div class="row d-flex justify-content-center">
+                <div class="col-12">
+                    <div class="w-50 border-2 border-bottom mx-auto"></div>
+                    <p class="text-white mt-5 mb-4 mx-auto text-center fs-4">Vaciar listado de equipos inventariados en
+                        la base de datos
+                    </p>
+                </div>
+
+                <div class="col-12 d-flex justify-content-center">
+                    <button class="btn btn-danger px-3 py-2" id="borrarEquipos">VACIAR LISTADO</button>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <footer class="bg-light d-flex justify-content-center py-3">
+        <h5>Creado por <a href="https://www.linkedin.com/in/nicolasbauchi" class="fw-bold">Nicolás Bauchi</a></h5>
+    </footer>
+
+    <script src="bootstrap/js/bootstrap.js"></script>
+    <script src="js/tabla_equipos.js"></script>
+</body>
+
+</html>
