@@ -3,26 +3,26 @@ package com.nicolas.api.models;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "servicios")
-public class Servicios {
+@Table(name = "estados")
+public class Estado {
 
     @Column(name = "id")
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
 
-    @Column(name = "nombre_servicios")
+    @Column(name = "nombre_estado")
     String nombre;
 
-    @Column(name = "ide_servicios")
-    String ideServicios;
+    @Column(name = "ide_estado")
+    String ideEstado;
 
-    public String getIdeServicios() {
-        return ideServicios;
+    public String getIdeEstado() {
+        return ideEstado;
     }
 
-    public void setIdeServicios(String ideServicios) {
-        this.ideServicios = ideServicios;
+    public void setIdeEstado(String ideEstado) {
+        this.ideEstado = ideEstado;
     }
 
     public int getId() {

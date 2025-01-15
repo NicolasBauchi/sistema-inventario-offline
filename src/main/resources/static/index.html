@@ -2,17 +2,19 @@
 <html lang="es">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/estilos.css">
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/estilos.css" />
+    <link rel="icon" type="image/png" href="/imgs/icono-biotrust.png"/>
     <title>Sistema de inventario - Biotrust</title>
+
 </head>
 
 <body class="container-fluid">
     <header>
         <div class="d-flex justify-content-center">
-            <a class=" py-2" href="index.html"><img src="imgs/logo.jpg" alt="Biotrust" class="img-logo-nb"></a>
+            <a class="py-2" href="index.html"><img src="imgs/logo.jpg" alt="Biotrust" class="img-logo-nb" /></a>
         </div>
         <nav class="navbar navbar-expand-lg bg-white border-2 border-bottom">
             <div class="container-fluid">
@@ -21,20 +23,22 @@
                     aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="collapse navbar-collapse " id="navbarTogglerDemo02">
+                <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
                     <ul class="navbar-nav mx-auto mb-2 mb-lg-0 fs-5 fw-bold">
                         <li class="nav-item mx-auto">
                             <a class="nav-link hover-text px-4" aria-current="page" href="index.html">Inicio</a>
                         </li>
-                        <li class="nav-item mx-auto ">
+                        <li class="nav-item mx-auto">
                             <a class="nav-link hover-text px-4" aria-current="page" href="cargados.html">Cargado</a>
                         </li>
-                        <li class="nav-item mx-auto ">
+                        <li class="nav-item mx-auto">
                             <a class="nav-link hover-text px-4" aria-current="page" href="listas.html">Actualizar
                                 Listas</a>
                         </li>
                         <li class="nav-item mx-auto">
-                            <button id="descargarCsv" class="btn btn-dark px-4 py-2">Descargar cargados</button>
+                            <button id="descargarCsv" class="btn btn-dark px-4 py-2">
+                                Descargar cargados
+                            </button>
                         </li>
                     </ul>
                 </div>
@@ -43,84 +47,76 @@
     </header>
 
     <main class="row bg-dark vh-70min">
-
         <div class="col-sm-12 col-md-4 mx-auto py-5">
             <form method="post" class="row d-flex justify-content-center gap-3 fw-bold" id="form-ingreso-equipo">
                 <div class="mb-3 row">
                     <label for="form-cliente" class="form-label text-white">Cliente</label>
                     <select class="form-select" aria-label="Default select example" name="form-cliente"
-                        id="form-cliente">
-
-                    </select>
-                    <!-- <input type="text" class="form-control-lg" id="form-cliente" name="form-cliente" required> -->
+                        id="form-cliente"></select>
                 </div>
-                <div class="mb-3 row">
-                    <label for="form-propiedad" class="form-label text-white">Propiedad</label>
+
+                <div class="mb-3 col-12 col-md-12 d-block row">
+                    <label for="form-servicio" class="form-label text-white">Servicio</label>
+                    <input type="text" class="form-control-lg" id="form-servicio" name="form-servicio" required />
+                    <div class="predictive-list" id="predictive-list-servicio"></div>
+                </div>
+
+                <div class="mb-3 col-12 col-md-6 d-block row">
+                    <label for="form-propiedad" class="form-label text-white">Pertenencia</label>
                     <select class="form-select" aria-label="Default select example" name="form-propiedad"
                         id="form-propiedad">
-                        <option selected value="Propio">Propio</option>
-                        <option value="Alquilado">Alquilado</option>
-                        <option value="Comodato">Comodato</option>
                     </select>
                 </div>
+
+                <div class="mb-3 col-12 col-md-6 d-block row">
+                    <label for="form-estado" class="form-label text-white">Estado</label>
+                    <select class="form-select" aria-label="Default select example" name="form-estado"
+                        id="form-estado">
+                    </select>
+                </div>
+
+                <div class="mb-3 col-12 col-md-6 d-block row">
+                    <label for="form-tipoequipo" class="form-label text-white ">Tipo de equipo</label>
+                    <input type="text" class="form-control-lg" id="form-tipoequipo" name="form-tipoequipo" required />
+                    <div class="predictive-list" id="predictive-list-tipoequipo"></div>
+                </div>
+
+                <div class="mb-3 col-12 col-md-6 d-block row">
+                    <label for="form-marca" class="form-label text-white">Fabricante</label>
+                    <input type="text" class="form-control-lg" id="form-marca" name="form-marca" required />
+                    <div class="predictive-list" id="predictive-list-marca"></div>
+                </div>
+
+                <div class="mb-3 col-12 col-md-6 d-block row">
+                    <label for="form-modelo" class="form-label text-white">Modelo</label>
+                    <input type="text" class="form-control-lg" id="form-modelo" name="form-modelo" required />
+                    <div class="predictive-list" id="predictive-list-modelo"></div>
+                </div>
+
                 <div class="mb-3 col-12 col-md-6 d-block row">
                     <label for="form-nroserie" class="form-label text-white">Número de serie</label>
-                    <input type="text" class="form-control-lg" id="form-nroserie" name="form-nroserie" required>
-                </div>
-                <div class="mb-3 col-12 col-md-6 d-block row">
-
-                    <label for="form-tipoequipo" class="form-label text-white">Tipo de equipo</label>
-
-                    <select class="form-select" aria-label="Default select example" name="form-tipoequipo"
-                        id="form-tipoequipo">
-
-                    </select>
-                    <!-- <input type="text" class="form-control-lg" id="form-tipoequipo" name="form-tipoequipo" required> -->
-
-
+                    <input type="text" class="form-control-lg" id="form-nroserie" name="form-nroserie" required />
                 </div>
 
-                <div class="mb-3  col-12 col-md-6 d-block row">
-                    <label for="form-modelo" class="form-label text-white">Modelo</label>
-                    <input type="text" class="form-control-lg" id="form-modelo" name="form-modelo" required>
-                </div>
-
-                <div class="mb-3  col-12 col-md-6 d-block row">
-
-                    <label for="form-marca" class="form-label text-white">Marca</label>
-
-                    <select class="form-select" aria-label="Default select example" name="form-marca" id="form-marca">
-                    </select>
-
-
-                    <!-- <input type="text" class="form-control-lg" id="form-marca" name="form-marca" required> -->
-                </div>
-
-                <div class="mb-4  col-12 col-md-6 d-block row">
+                <div class="mb-4 col-12 col-md-12 d-block row">
                     <label for="form-ubicacion" class="form-label text-white">Ubicación</label>
-                    <input type="text" class="form-control-lg" id="form-ubicacion" name="form-ubicacion" required>
+                    <input type="text" class="form-control-lg" id="form-ubicacion" name="form-ubicacion" required />
                 </div>
-
-                <div class="mb-3  col-12 col-md-6 d-block row">
-                    <label for="form-servicio" class="form-label text-white">Servicio</label>
-                    <select class="form-select" aria-label="Default select example" name="form-servicio"
-                        id="form-servicio">
-                    </select>
-                    <!-- <input type="text" class="form-control-lg" id="form-servicio" name="form-servicio" required> -->
-                </div>
-
 
                 <div class="d-flex justify-content-center mt-3">
-                    <button type="submit" class="btn btn-primary py-2 px-5">Imprimir</button>
+                    <button type="submit" class="btn btn-primary py-2 px-5">
+                        Imprimir
+                    </button>
                 </div>
             </form>
-
         </div>
-
     </main>
 
     <footer class="bg-light d-flex justify-content-center py-3">
-        <h5>Creado por <a href="https://www.linkedin.com/in/nicolasbauchi" class="fw-bold">Nicolás Bauchi</a></h5>
+        <h5>
+            Creado por
+            <a href="https://www.linkedin.com/in/nicolasbauchi" class="fw-bold">Nicolás Bauchi</a>
+        </h5>
     </footer>
 
     <script src="bootstrap/js/bootstrap.js"></script>

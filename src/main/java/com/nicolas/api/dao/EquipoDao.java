@@ -2,11 +2,11 @@ package com.nicolas.api.dao;
 
 import com.nicolas.api.models.Equipo;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public interface EquipoDao {
     //Consultar todos los equipos
-    ArrayList<Equipo> getEquipos();
+    List<Equipo> getEquipos();
 
     //Consultar por 1 solo equipo
     public Equipo getEquipo(int id);
@@ -20,5 +20,4 @@ public interface EquipoDao {
 
     public void vaciarEquipos();
 
-    //public void imprimirInfoBD();
 }

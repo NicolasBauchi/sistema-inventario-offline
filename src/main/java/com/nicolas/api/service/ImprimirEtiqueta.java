@@ -2,7 +2,6 @@ package com.nicolas.api.service;
 
 import com.nicolas.api.models.Equipo;
 import org.springframework.stereotype.Service;
-import javax.print.*;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -11,40 +10,18 @@ import java.io.IOException;
 @Service
 public class ImprimirEtiqueta {
 
-    /**public void imprimir(Equipo eq){
-
-
-        try {
-            PrintService ps = PrintServiceLookup.lookupDefaultPrintService();
-
-            DocPrintJob docPJ = ps.createPrintJob();
-
-            DocFlavor dFlavor = DocFlavor.BYTE_ARRAY.AUTOSENSE; //DocFlavor.INPUT_STREAM.AUTOSENSE;
-
-            Doc d = null;
-
-            String data = eq.generarTicket();
-            if (data.equals("")){
-                data = "el archivo estaba vacío, por algún motivo no carga.";
-            }
-
-            d = new SimpleDoc(data.getBytes(), dFlavor, null); //.getBytes()
-
-
-            docPJ.print(d,null);
-
-
-            //con esto la informacion sale vacía. Imprime pero vacio.
-
-
-        }catch (PrintException ex){
-            ex.printStackTrace();
-        }
-
-    }*/
+    private String printerName;
 
 
     public void imprimirTicket(Equipo eq){
+
+        this.printerName = PrinterUtils.obtenerImpresoraConectada();
+
+        if (printerName == null){
+            System.out.println("No se encontró ninguna impresora conectada.");
+        }else{
+            System.out.println("Impresora conectada: " + printerName);
+        }
 
         //Creación de impresión:
 
@@ -64,7 +41,8 @@ public class ImprimirEtiqueta {
 
 
         //Enviar archivo a imprimir:
-        String printerName = "Zebra_Technologies_ZTC_ZD220-203dpi_ZPL";
+       // String printerName = "Zebra_Technologies_ZTC_GC420t_";
+        //String printerName = "Zebra_Technologies_ZTC_ZD220-203dpi_ZPL";
         ProcessBuilder builder = new ProcessBuilder("lp", "-d", printerName, fileName);
         try {
             Process process = builder.start();

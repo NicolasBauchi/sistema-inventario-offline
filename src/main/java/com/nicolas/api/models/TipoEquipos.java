@@ -15,6 +15,16 @@ public class TipoEquipos {
     @Column(name = "nombre_tipos")
     String nombre;
 
+    @Column(name = "ide_tipos")
+    String ideTipos;
+
+    public String getIdeTipos() {
+        return ideTipos;
+    }
+
+    public void setIdeTipos(String ideTipos) {
+        this.ideTipos = ideTipos;
+    }
 
     public int getId() {
         return id;

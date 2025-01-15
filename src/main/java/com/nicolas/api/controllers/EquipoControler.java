@@ -12,11 +12,9 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 import java.io.*;
-import java.text.DateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
+import java.util.List;
 
 @RestController
 public class EquipoControler {
@@ -28,20 +26,20 @@ public class EquipoControler {
     private ImprimirEtiqueta ticket;
 
     @RequestMapping(value = "equipos", method = RequestMethod.GET)
-    public ArrayList<Equipo> getEquipos(){
-        return equipoDao.getEquipos();
+    public List<Equipo> getEquipos(){
+        return this.equipoDao.getEquipos();
     }
 
     //Agregar 1 equipo
     @RequestMapping(value = "ingresar-equipo" , method = RequestMethod.POST)
     public ResponseEntity<String> agregarEquipo(@RequestBody Equipo equipo){
         //con RequestBody: convierte el json que recibe en un objeto Equipo automaticamente.
-        equipoDao.agregar(equipo);
+
+        //Ingreso equipo en BD
+        this.equipoDao.agregar(equipo);
 
         //Acá tiene que imprimir:
-
-        //ticket.imprimir(equipo);
-        ticket.imprimirTicket(equipo);
+        this.ticket.imprimirTicket(equipo);
 
 
         return new ResponseEntity<String>("El equipo fue almacenado correctamente", HttpStatus.OK);
@@ -56,20 +54,24 @@ public class EquipoControler {
 
     //Editar 1 equipo
     @RequestMapping(value = "equipos/{id}", method = RequestMethod.PUT)
-    public void editarEquipo(@PathVariable Equipo equipo){
-        equipoDao.editarEquipo(equipo);
+    public void editarEquipo(@PathVariable("id") int id, @RequestBody Equipo equipo){
+        this.equipoDao.editarEquipo(equipo);
     }
 
-    // Vaciar / truncate tabla equipos
     @RequestMapping(value = "vaciar/equipos", method = RequestMethod.DELETE)
-    public void vaciarTablaEquipos(){
-        equipoDao.vaciarEquipos();
+    public ResponseEntity<String> vaciarTablaEquipos(){
+        this.equipoDao.vaciarEquipos();
+        return new ResponseEntity<String>("Se vació el listado de equipos correctamente", HttpStatus.OK);
     }
 
-    @RequestMapping(value = "descargarListado", method = RequestMethod.POST)
+    @RequestMapping(value = "descargarListado", method = RequestMethod.GET)
     public ResponseEntity<Resource> imprimirInfo() throws IOException {
 
-        ArrayList<Equipo> losEquipos = equipoDao.getEquipos();
+        List<Equipo> losEquipos =  equipoDao.getEquipos(); //array de array[10], array[10], array[10]
+
+
+
+        int cantidadEquipos = losEquipos.size();
         ByteArrayOutputStream out = new ByteArrayOutputStream();
 
         CSVPrinter csvPrinter = new CSVPrinter(new PrintWriter(out), CSVFormat.DEFAULT.withDelimiter(';'));
@@ -78,7 +80,7 @@ public class EquipoControler {
 
 
             for (Equipo equipo : losEquipos) {
-                String tipo = equipo.getTipo_equipo();
+                /*String tipo = equipo.getTipo_equipo();
                 String marca = equipo.getMarca();
                 String serie = equipo.getSerie();
                 String modelo = equipo.getModelo();
@@ -89,7 +91,30 @@ public class EquipoControler {
                 String propiedad = equipo.getPropiedad();
 
                 csvPrinter.printRecord(milisegundos, tms,tipo,marca,serie,
-                        modelo, servicio,"","","","", cliente, ubicacion, "", propiedad, "");
+                        modelo, servicio,"","","","", cliente, ubicacion, "", propiedad, "");*/
+
+
+                //Nuevos datos
+                String idTipoEquipo = equipo.getTipoequipoide();
+                String idMarca = equipo.getMarcaide();
+                String idModelo = equipo.getModeloide();
+                String serie = equipo.getSerie();
+                String idServicio = equipo.getServicioide();
+                String idCliente = equipo.getClienteide();
+                String certificable = "NO"; //Por defecto NO, a pedido de Daniel.
+                String certificable_e = "NO"; //Por defecto NO, a pedido de Daniel.
+                String idPropiedad = equipo.getPropiedadide(); //PERTENENCIA -> daniel
+                String idEstado = equipo.getEstadoide();
+                String mantenible = "NO"; //Por defecto NO, a pedido de Daniel.
+                String ubicacion = equipo.getUbicacion();
+
+
+                //nuevo listado:
+                // Id_tipo_de_equipo, id_fabricante, id_modelo, serial, id_servicio, id_cliente,
+                // certificable, certificable_e, id_pertenencia, id_estado, mantenible
+
+                csvPrinter.printRecord(idTipoEquipo, idMarca, idModelo,serie,idServicio,idCliente,
+                        certificable,certificable_e,idPropiedad,idEstado, mantenible,ubicacion);
             }
 
 
@@ -100,15 +125,11 @@ public class EquipoControler {
         //Nombre de archivo a descargar:
         String institucion = "";
         String nombreArchivo ="";
-        String fecha = "";
-        Calendar c = Calendar.getInstance();
-        fecha = Integer.toString(c.get(Calendar.DATE)) + "-" +
-                Integer.toString( (c.get(Calendar.MONTH) + 1) ) + "-" +
-                Integer.toString(c.get(Calendar.YEAR));
 
-        if (losEquipos.size() > 0){
+
+        if (cantidadEquipos > 0){
             institucion = losEquipos.get(0).getCliente();
-            nombreArchivo = institucion + "-" + fecha + ".csv";
+            nombreArchivo = institucion  + ".csv"; //Sin fecha para no confundir.
 
         }else{
             nombreArchivo = "inventario.csv";

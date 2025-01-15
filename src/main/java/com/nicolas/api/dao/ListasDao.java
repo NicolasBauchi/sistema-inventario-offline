@@ -1,41 +1,57 @@
 package com.nicolas.api.dao;
 
-import com.nicolas.api.models.Marca;
-import com.nicolas.api.models.Servicios;
-import com.nicolas.api.models.TipoEquipos;
-import com.nicolas.api.models.Cliente;
+import com.nicolas.api.models.*;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public interface ListasDao {
 
-    //Tabla Cliente
-    public ArrayList<Cliente> nombresClientes(); //listado
+    //Tabla Clientes
+    public List<Cliente> nombresClientes(); //listado
     public Cliente getCliente(int id);
-    public void agregarCliente(Cliente cliente1);
-
+    public void agregarCliente(Cliente cliente);
     public void truncarTablaCliente() ;
 
 
-    //Tabla Marca
-    public ArrayList<Marca> nombresMarcas(); //listado
+    //Tabla Marcas
+    public List<Marca> nombresMarcas(); //listado
     public Marca getMarca(int id);
     public void agregarMarca(Marca marca);
     public void truncarTablaMarca() ;
 
 
     //Tabla Servicios
-    public ArrayList<Servicios> nombresServicios(); //listado
+    public List<Servicios> nombresServicios(); //listado
     public Servicios getServicios(int id);
     public void agregarServicios(Servicios servicios);
     public void truncarTablaServicio() ;
 
 
-    //Tabla Tipo de equipos
-    public ArrayList<TipoEquipos> nombresTipoEquipos(); //listado
+    //Tabla Tipos de equipos
+    public List<TipoEquipos> nombresTipoEquipos(); //listado
     public TipoEquipos getTipoEquipos(int id);
     public void agregarTipoEquipos(TipoEquipos tipoEquipos);
     public void truncarTablaTipo() ;
+
+
+    //Tabla Modelos
+    public List<Modelo> nombresModelos(); //listado
+    public Modelo getModelos(int id);
+    public void agregarModelos(Modelo modelos);
+    public void truncarTablaModelos() ;
+
+    //Tabla Estado
+    public List<Estado> nombresEstados(); //listado
+    public Estado getEstados(int id);
+    public void agregarEstado(Estado estados);
+    public void truncarTablaEstados() ;
+
+    //Tabla Propiedad
+    public List<Propiedad> nombresPropiedades(); //listado
+    public Propiedad getPropiedad(int id);
+    public void agregarPropiedad(Propiedad propiedad);
+    public void truncarTablaPropiedad() ;
+
 
 
 }

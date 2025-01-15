@@ -6,7 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import java.util.ArrayList;
+import java.util.List;
 
 @Repository
 @Transactional
@@ -18,11 +18,11 @@ public class ListasDaoImpl implements ListasDao{
     //Tabla clientes
 
     @Override
-    public ArrayList<Cliente> nombresClientes() {
-        //Esto es lenguaje SQL puro. - Usando esta opción no devuelve objeto Cliente en Front,
+    public List<Cliente> nombresClientes() {
+        //Esto es lenguaje SQL puro.
         // solo un array de arrays.
         String queryN = "SELECT * FROM clientes ORDER BY nombre_cliente";
-        return (ArrayList<Cliente>) entityManager.createNativeQuery(queryN).getResultList();
+        return (List<Cliente>) entityManager.createNativeQuery(queryN).getResultList();
 
 
         //String query = "FROM Cliente";
@@ -36,8 +36,8 @@ public class ListasDaoImpl implements ListasDao{
     }
 
     @Override
-    public void agregarCliente(Cliente cliente1) {
-        entityManager.merge(cliente1);
+    public void agregarCliente(Cliente cliente) {
+        entityManager.merge(cliente);
     }
 
 
@@ -53,10 +53,10 @@ public class ListasDaoImpl implements ListasDao{
     //Tabla marcas
 
     @Override
-    public ArrayList<Marca> nombresMarcas() {
+    public List<Marca> nombresMarcas() {
         //Esto es lenguaje SQL puro.
         String queryN = "SELECT * FROM marcas ORDER BY nombre_marcas";
-        return (ArrayList<Marca>) entityManager.createNativeQuery(queryN).getResultList();
+        return (List<Marca>) entityManager.createNativeQuery(queryN).getResultList();
 
 
         //String query = "FROM Marca";
@@ -86,10 +86,10 @@ public class ListasDaoImpl implements ListasDao{
     //Tabla servicios
 
     @Override
-    public ArrayList<Servicios> nombresServicios() {
+    public List<Servicios> nombresServicios() {
         //Esto es lenguaje SQL puro.
         String queryN = "SELECT * FROM servicios ORDER BY nombre_servicios";
-        return (ArrayList<Servicios>) entityManager.createNativeQuery(queryN).getResultList();
+        return (List<Servicios>) entityManager.createNativeQuery(queryN).getResultList();
 
        // String query = "FROM Servicios";
        // return (ArrayList<Servicios>) entityManager.createQuery(query).getResultList();
@@ -118,10 +118,10 @@ public class ListasDaoImpl implements ListasDao{
     //Tabla tipo equipos
 
     @Override
-    public ArrayList<TipoEquipos> nombresTipoEquipos() {
+    public List<TipoEquipos> nombresTipoEquipos() {
         //Esto es lenguaje SQL puro.
         String queryN = "SELECT * FROM tipoequipos ORDER BY nombre_tipos";
-        return (ArrayList<TipoEquipos>) entityManager.createNativeQuery(queryN).getResultList();
+        return (List<TipoEquipos>) entityManager.createNativeQuery(queryN).getResultList();
 
         //String query = "FROM TipoEquipos";
         //return (ArrayList<TipoEquipos>) entityManager.createQuery(query).getResultList();
@@ -135,7 +135,7 @@ public class ListasDaoImpl implements ListasDao{
 
     @Override
     public void agregarTipoEquipos(TipoEquipos tipoEquipos) {
-        entityManager.merge(tipoEquipos);
+        entityManager.persist(tipoEquipos);
     }
 
     @Override
@@ -143,6 +143,87 @@ public class ListasDaoImpl implements ListasDao{
     public void truncarTablaTipo() {
         //Esto es lenguaje SQL puro.
         String queryN = "TRUNCATE TABLE tipoequipos";
+        entityManager.createNativeQuery(queryN).executeUpdate();
+    }
+
+    //Tabla MODELOS
+
+    @Override
+    public List<Modelo> nombresModelos() {
+        //Esto es lenguaje SQL puro.
+        String queryN = "SELECT * FROM modelos ORDER BY nombre_modelos";
+        return (List<Modelo>) entityManager.createNativeQuery(queryN).getResultList();
+    }
+
+    @Override
+    public Modelo getModelos(int id) {
+        String query = "FROM modelos WHERE id='" + id + "'";
+        return (Modelo) entityManager.createQuery(query).getResultList();
+    }
+
+    @Override
+    public void agregarModelos(Modelo modelos) {
+        entityManager.merge(modelos);
+    }
+
+    @Override
+    public void truncarTablaModelos() {
+        //Esto es lenguaje SQL puro.
+        String queryN = "TRUNCATE TABLE modelos";
+        entityManager.createNativeQuery(queryN).executeUpdate();
+    }
+
+    //Tabla ESTADOS
+
+    @Override
+    public List<Estado> nombresEstados() {
+        //Esto es lenguaje SQL puro.
+        String queryN = "SELECT * FROM estados ORDER BY nombre_estado";
+        return (List<Estado>) entityManager.createNativeQuery(queryN).getResultList();
+    }
+
+    @Override
+    public Estado getEstados(int id) {
+        String query = "FROM estados WHERE id='" + id + "'";
+        return (Estado) entityManager.createQuery(query).getResultList();
+    }
+
+    @Override
+    public void agregarEstado(Estado estados) {
+        entityManager.merge(estados);
+    }
+
+    @Override
+    public void truncarTablaEstados() {
+        //Esto es lenguaje SQL puro.
+        String queryN = "TRUNCATE TABLE estados";
+        entityManager.createNativeQuery(queryN).executeUpdate();
+    }
+
+    //Tabla PROPIEDADES
+
+    @Override
+    public List<Propiedad> nombresPropiedades() {
+        //Esto es lenguaje SQL puro.
+        String queryN = "SELECT * FROM propiedades ORDER BY nombre_propiedad";
+        return (List<Propiedad>) entityManager.createNativeQuery(queryN).getResultList();
+    }
+
+    @Override
+    public Propiedad getPropiedad(int id) {
+        String query = "FROM propiedades WHERE id='" + id + "'";
+        return (Propiedad) entityManager.createQuery(query).getResultList();
+    }
+
+    @Override
+    public void agregarPropiedad(Propiedad propiedad) {
+        entityManager.merge(propiedad);
+    }
+
+    @Override
+    public void truncarTablaPropiedad() {
+        //Esto es lenguaje SQL puro.
+        String queryN = "TRUNCATE TABLE propiedades";
         entityManager.createNativeQuery(queryN).executeUpdate();
     }
 

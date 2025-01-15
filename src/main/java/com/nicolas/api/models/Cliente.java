@@ -14,6 +14,9 @@ public class Cliente {
     @Column(name = "nombre_cliente")
     String nombre;
 
+    @Column(name = "identificliente")
+    String identificliente;
+
     public int getId() {
         return id;
     }
@@ -28,5 +31,13 @@ public class Cliente {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    public String getIdentificliente() {
+        return identificliente;
+    }
+
+    public void setIdentificliente(String identificliente) {
+        this.identificliente = identificliente;
     }
 }

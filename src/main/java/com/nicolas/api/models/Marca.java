@@ -14,6 +14,16 @@ public class Marca {
     @Column(name = "nombre_marcas")
     String nombre;
 
+    @Column(name = "ide_marcas")
+    String ideMarcas;
+
+    public String getIdeMarcas() {
+        return ideMarcas;
+    }
+
+    public void setIdeMarcas(String ideMarcas) {
+        this.ideMarcas = ideMarcas;
+    }
 
     public int getId() {
         return id;

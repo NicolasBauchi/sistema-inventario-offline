@@ -1,155 +1,227 @@
 <!DOCTYPE html>
 <html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/estilos.css" />
+    <link rel="icon" type="image/png" href="/imgs/icono-biotrust.png"/>
+    <title>Actualizar listados - Biotrust</title>
+  </head>
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/estilos.css">
-    <title>Actualizar - Biotrust</title>
-</head>
-
-<body class="container-fluid">
+  <body class="container-fluid">
     <header>
-        <div class="d-flex justify-content-center">
-            <a class=" py-2" href="index.html"><img src="imgs/logo.jpg" alt="Biotrust" class="img-logo-nb"></a>
-        </div>
-        <nav class="navbar navbar-expand-lg bg-white border-2 border-bottom">
-            <div class="container-fluid">
-                <button class="navbar-toggler mx-auto" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false"
-                    aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
+      <div class="d-flex justify-content-center">
+        <a class="py-2" href="index.html"
+          ><img src="imgs/logo.jpg" alt="Biotrust" class="img-logo-nb"
+        /></a>
+      </div>
+      <nav class="navbar navbar-expand-lg bg-white border-2 border-bottom">
+        <div class="container-fluid">
+          <button
+            class="navbar-toggler mx-auto"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarTogglerDemo02"
+            aria-controls="navbarTogglerDemo02"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+            <ul class="navbar-nav mx-auto mb-2 mb-lg-0 fs-5 fw-bold">
+              <li class="nav-item mx-auto">
+                <a
+                  class="nav-link hover-text px-4"
+                  aria-current="page"
+                  href="index.html"
+                  >Inicio</a
+                >
+              </li>
+              <li class="nav-item mx-auto">
+                <a
+                  class="nav-link hover-text px-4"
+                  aria-current="page"
+                  href="cargados.html"
+                  >Cargado</a
+                >
+              </li>
+              <li class="nav-item mx-auto">
+                <a
+                  class="nav-link hover-text px-4"
+                  aria-current="page"
+                  href="listas.html"
+                  >Actualizar Listas</a
+                >
+              </li>
+              <li class="nav-item mx-auto">
+                <button
+                  id="descargarCsv"
+                  class="btn btn-dark px-4 py-2"
+                  onclick="solicitudDescarga()"
+                >
+                  Descargar cargados
                 </button>
-                <div class="collapse navbar-collapse " id="navbarTogglerDemo02">
-                    <ul class="navbar-nav mx-auto mb-2 mb-lg-0 fs-5 fw-bold">
-                        <li class="nav-item mx-auto">
-                            <a class="nav-link hover-text px-4" aria-current="page" href="index.html">Inicio</a>
-                        </li>
-                        <li class="nav-item mx-auto ">
-                            <a class="nav-link hover-text px-4" aria-current="page" href="cargados.html">Cargado</a>
-                        </li>
-                        <li class="nav-item mx-auto ">
-                            <a class="nav-link hover-text px-4" aria-current="page" href="listas.html">Actualizar
-                                Listas</a>
-                        </li>
-                        <li class="nav-item mx-auto">
-                            <button id="descargarCsv" class="btn btn-dark px-4 py-2"
-                                onclick="solicitudDescarga()">Descargar cargados</button>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
     </header>
 
     <main class="row bg-dark vh-70min d-flex align-content-start">
-        <!-- Carga de archivos -->
-        <div class="col-12 mt-5">
-            <div class="col-12 d-flex justify-content-center mb-3">
+      <!-- Carga de archivos -->
+
+      <div class="col-12 mt-5">
+
+        <div class="col-12 d-flex flex-column justify-content-center mb-3">
+            <div >
                 <h3 class="text-white text-center">Subir listados :</h3>
+                
             </div>
 
-            <div class="col-12 d-flex justify-content-center">
-
-                <div class="row gap-5">
-
-                    <div class="col-12 d-flex justify-content-center">
-                        <!-- Listado clientes -->
-                        <form method="post" enctype="multipart/form-data" class="formulario-listas"
-                            id="form-subida-clientes">
-                            <div class="input-group">
-                                <input type="file" accept=".csv, .txt" class="form-control" id="input-clientes"
-                                    aria-describedby="inputGroupFileAddon04" aria-label="Upload">
-                                <button class="btn btn-primary px-4" type="submit"
-                                    id="inputGroupFileAddon04">CLIENTES</button>
-                            </div>
-                        </form>
-                    </div>
-
-                    <div class="col-12 d-flex justify-content-center">
-                        <!-- Listado marcas -->
-                        <form method="post" enctype="multipart/form-data" class="formulario-listas"
-                            id="form-subida-marcas">
-                            <div class="input-group">
-                                <input type="file" accept=".csv, .txt" class="form-control" id="input-marcas"
-                                    aria-describedby="inputGroupFileAddon05" aria-label="Upload">
-                                <button class="btn btn-secondary px-4" type="submit"
-                                    id="inputGroupFileAddon05">MARCAS</button>
-                            </div>
-                        </form>
-                    </div>
-
-                    <div class="col-12 d-flex justify-content-center">
-                        <!-- Listado servicio -->
-                        <form method="post" enctype="multipart/form-data" class="formulario-listas"
-                            id="form-subida-servicios">
-                            <div class="input-group">
-                                <input type="file" accept=".csv, .txt" class="form-control" id="input-servicios"
-                                    aria-describedby="inputGroupFileAddon06" aria-label="Upload">
-                                <button class="btn btn-success px-4" type="submit"
-                                    id="inputGroupFileAddon06">SERVICIOS</button>
-                            </div>
-                        </form>
-                    </div>
-
-                    <div class="col-12 d-flex justify-content-center">
-
-                        <!-- Listado tipos de equipos -->
-                        <form method="post" enctype="multipart/form-data" class="formulario-listas"
-                            id="form-subida-tipos">
-                            <div class="input-group">
-                                <input type="file" accept=".csv, .txt" class="form-control" id="input-tipos"
-                                    aria-describedby="inputGroupFileAddon07" aria-label="Upload">
-                                <button class="btn btn-danger px-4" type="submit" id="inputGroupFileAddon07">TIPOS DE
-                                    EQUIPOS</button>
-                            </div>
-                        </form>
-                    </div>
-                    <div class=" d-flex justify-content-center">
-                        <hr class="text-white m-0 p-0" style="width: 50%;">
-                    </div>
-
-                    <div class="col-12 d-flex justify-content-center mt-5 pb-4">
-                        <div class="row">
-                            <div class="col-12 pb-4">
-                                <h3 class="text-white text-center">Eliminar listas :</h3>
-                            </div>
-                            <div class="col-3">
-                                <button class="btn btn-primary p-2 w-100" id="borrarClientes"> Borrar Tabla
-                                    <br>Clientes</button>
-                            </div>
-                            <div class="col-3">
-                                <button class="btn btn-secondary p-2 w-100" id="borrarMarcas"> Borrar Tabla
-                                    <br>Marcas</button>
-                            </div>
-                            <div class="col-3">
-                                <button class="btn btn-success p-2 w-100" id="borrarServicios"> Borrar Tabla
-                                    <br>Servicios</button>
-                            </div>
-                            <div class="col-3">
-                                <button class="btn btn-danger p-2 w-100" id="borrarTipos"> Borrar Tabla
-                                    <br>Tipos</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-
+            <div class="mx-auto text-white text-start">
+                
+                <p>1_Elegí el archivo presionando "Examinar".</p>
+                <p>2_Seleccioná que listado actualizarás.</p>
+                <p>3_SUBIR!</p>
             </div>
-
+          
         </div>
 
+        <!--  -->
+        <div class="col-12 my-4 ">
+          <div class="row d-flex justify-content-center">
+            <div class="col-12  d-flex justify-content-center">
+                <form action="" method="post" id="nuevoFormularioListas">
+                    <div class="row d-flex gap-4">
+                        <div class="row">
+                            <input
+                            class="form-control"
+                            type="file"
+                            name=""
+                            id="input-listados"
+                            accept=".csv, .txt"
+                          />
+                        </div>
 
+                        <div class="row gap-4">
+                            <select class="form-select col" name="select-listados" id="select-listados">
+                                <option value="clientes" selected>Clientes</option>
+                                <option value="marcas">Fabricante</option>
+                                <option value="servicios">Servicios</option>
+                                <option value="modelos">Modelos</option>
+                                <option value="tipoEquipos">Tipos de Equipos</option>
+                                <option value="propiedades">Pertenencia</option>
+                                <option value="estados">Estados</option>
+                              </select>
+                              <button class="col-3 py-2 btn btn-primary mx-auto" type="submit">
+                                SUBIR
+                              </button>
+                        </div>
+                      
+        
+                      
 
+                    </div>
+                  </form>
+            </div>
+          </div>
+        </div>
+        <!--  -->
 
+        <!-- ELIMINAR LISTADOS DATA d-none tiene el primer div -->
+        <div class="col-12 d-flex justify-content-center d-none" >
+          <div class="row">
+            <div class="d-flex justify-content-center">
+              <hr class="text-white m-0 p-0" style="width: 50%" />
+            </div>
+
+            <div class="col-12 d-flex justify-content-center mt-5 pb-4">
+              <div class="row">
+                <div class="col-12 pb-4">
+                  <h3 class="text-white text-center">Eliminar listados :</h3>
+                </div>
+                <div class="col-12">
+                  <div class="row d-flex justify-content-center pb-4">
+                    <div class="col">
+                      <button
+                        class="btn btn-primary p-2 w-100"
+                        id="borrarClientes"
+                      >
+                        Borrar Tabla <br />Clientes
+                      </button>
+                    </div>
+                    <div class="col">
+                      <button
+                        class="btn btn-secondary p-2 w-100"
+                        id="borrarMarcas"
+                      >
+                        Borrar Tabla <br />Marcas
+                      </button>
+                    </div>
+                    <div class="col">
+                      <button
+                        class="btn btn-success p-2 w-100"
+                        id="borrarServicios"
+                      >
+                        Borrar Tabla <br />Servicios
+                      </button>
+                    </div>
+
+                    <div class="col">
+                      <button class="btn btn-danger p-2 w-100" id="borrarTipos">
+                        Borrar Tabla <br />Tipos
+                      </button>
+                    </div>
+                  </div>
+                  <div class="row d-flex justify-content-center pb-4">
+                    <div class="col">
+                      <button
+                        class="btn btn-warning text-white p-2 w-100"
+                        id="borrarModelos"
+                      >
+                        Borrar Tabla <br />Modelos
+                      </button>
+                    </div>
+
+                    <div class="col">
+                      <button
+                        class="btn btn-light text-dark p-2 w-100"
+                        id="borrarEstados"
+                      >
+                        Borrar Tabla <br />Estados
+                      </button>
+                    </div>
+
+                    <div class="col">
+                      <button
+                        class="btn btn-info text-white p-2 w-100"
+                        id="borrarPropiedades"
+                      >
+                        Borrar Tabla <br />Propiedades
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </main>
 
     <footer class="bg-light d-flex justify-content-center py-3">
-        <h5>Creado por <a href="https://www.linkedin.com/in/nicolasbauchi" class="fw-bold">Nicolás Bauchi</a></h5>
+      <h5>
+        Creado por
+        <a href="https://www.linkedin.com/in/nicolasbauchi" class="fw-bold"
+          >Nicolás Bauchi</a
+        >
+      </h5>
     </footer>
+
     <script src="bootstrap/js/bootstrap.js"></script>
     <script src="js/listas.js"></script>
-</body>
-
+  </body>
 </html>
