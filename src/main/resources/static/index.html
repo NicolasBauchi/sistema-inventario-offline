@@ -49,10 +49,10 @@
     <main class="row bg-dark vh-70min">
         <div class="col-sm-12 col-md-4 mx-auto py-5">
             <form method="post" class="row d-flex justify-content-center gap-3 fw-bold" id="form-ingreso-equipo">
-                <div class="mb-3 row">
+                <div class="mb-3 d-block row">
                     <label for="form-cliente" class="form-label text-white">Cliente</label>
-                    <select class="form-select" aria-label="Default select example" name="form-cliente"
-                        id="form-cliente"></select>
+                    <input type="text" class="form-control-lg" id="form-cliente" name="form-cliente" required />
+                    <div class="predictive-list" id="predictive-list-cliente"></div>
                 </div>
 
                 <div class="mb-3 col-12 col-md-12 d-block row">

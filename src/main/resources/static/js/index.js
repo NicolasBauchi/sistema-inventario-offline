@@ -5,12 +5,14 @@ var losEquiposTipoequipo = [];
 var losEquiposModelo = [];
 var losEquiposMarca = [];
 var losEquiposServicio = [];
-var losEquiposPropiedad = [];
-var losEquiposEstado = [];
+var losEquiposCliente = [];
+/* var losEquiposPropiedad = [];
+var losEquiposEstado = []; */
 
-var contadorPalabrasTipos = 0;
+
+/* var contadorPalabrasTipos = 0;
 var contadorPalabrasMarca = 0;
-var contadorPalabrasServicio = 0;
+var contadorPalabrasServicio = 0; */
 
 eventoDescargarCsv();
 eventoFormulario();
@@ -33,11 +35,8 @@ async function registrarEquipo(e) {
   console.log("cargo funct registrarEquipo");
   e.preventDefault();
 
-  let cliente = document.getElementById("form-cliente").value;
-  let clienteidOption = document.getElementsByName(cliente)[0].id;
-
   let datos = {};
-  datos.cliente = cliente;
+  datos.cliente = document.getElementById("form-cliente").value;
   datos.propiedad = document.getElementById("form-propiedad").value;
   datos.serie = document.getElementById("form-nroserie").value;
   datos.tipo_equipo = document.getElementById("form-tipoequipo").value;
@@ -45,7 +44,7 @@ async function registrarEquipo(e) {
   datos.modelo = document.getElementById("form-modelo").value;
   datos.servicio = document.getElementById("form-servicio").value;
   datos.ubicacion = document.getElementById("form-ubicacion").value;
-  datos.clienteide = clienteidOption;
+  
   //let auxEstado = document.getElementById("form-estado").value;
 
   const tipo_encontrado = losEquiposTipoequipo.find(
@@ -60,9 +59,12 @@ async function registrarEquipo(e) {
   const servicio_encontrado = losEquiposServicio.find(
     (equip) => equip[1] === datos.servicio
   );
+  const cliente_encontrado = losEquiposCliente.find(
+    (equip) => equip[1] === datos.cliente
+  );
   //const estado_encontrado = losEquiposEstado.find(equip => equip.nombre === auxEstado);
   //const propiedad_encontrado = losEquiposPropiedad.find(equip => equip.nombre === datos.propiedad);
-
+  datos.clienteide = cliente_encontrado ? cliente_encontrado[2] : null;
   datos.marcaide = marca_encontrado ? marca_encontrado[2] : null;
   datos.modeloide = modelo_encontrado ? modelo_encontrado[2] : null;
   datos.tipoequipoide = tipo_encontrado ? tipo_encontrado[2] : null;
@@ -127,16 +129,22 @@ async function cargarListas() {
   let clientes = await cargarInfo("clientes");
 
   if (clientes) {
-    let menuCliente = document.getElementById("form-cliente");
-
-    clientes.forEach((el) => {
+    losEquiposCliente = clientes;
+    /*let menuCliente = document.getElementById("form-cliente");
+    
+     clientes.forEach((el) => {
       let opti = document.createElement("option");
       opti.value = String(el[1]);
       opti.innerText = String(el[1]);
       opti.id = String(el[2]);
       opti.setAttribute("name", String(el[1]));
       menuCliente.append(opti);
-    });
+    }); */
+
+    let listadoPredictivo = document.getElementById("predictive-list-cliente");
+    listadoPredictivo.style.display = "none";
+    let clienteInput = document.getElementById("form-cliente");
+    clienteInput.addEventListener("input", predictivoCliente);
   } else {
     console.log("No hay clientes para cargar.");
   }
@@ -148,16 +156,7 @@ async function cargarListas() {
 
   if (tipoEquipos) {
     losEquiposTipoequipo = tipoEquipos;
-    // losEquiposTipoequipo -> [0] = ID , [1] = nombre.
-
-    /* //Lo paso a un array de Strings
-    let auxiliarTipos = [];
-    tipoEquipos.forEach((eqs) => {
-      auxiliarTipos.push(String(eqs[1]));
-
-      losEquiposTipoequipo = eliminarRepetidos(auxiliarTipos);
-    }); */
-
+  
     let listadoPredictivo = document.getElementById(
       "predictive-list-tipoequipo"
     );
@@ -173,12 +172,7 @@ async function cargarListas() {
 
   if (marcas) {
     losEquiposMarca = marcas;
-    /*  let auxMarcas = [];
-    marcas.forEach((eqs) => {
-      auxMarcas.push(String(eqs[1]));
-      losEquiposMarca = eliminarRepetidos(auxMarcas);
-    }); */
-
+  
     let listadoPredictivo = document.getElementById("predictive-list-marca");
     listadoPredictivo.style.display = "none";
     let marcaInput = document.getElementById("form-marca");
@@ -192,12 +186,7 @@ async function cargarListas() {
 
   if (servicios) {
     losEquiposServicio = servicios;
-    /* let auxServicios = [];
-    servicios.forEach((eqs) => {
-      auxServicios.push(String(eqs[1]));
-      losEquiposServicio = eliminarRepetidos(auxServicios);
-    }); */
-
+  
     let listadoPredictivo = document.getElementById("predictive-list-servicio");
     listadoPredictivo.style.display = "none";
     let servicioInput = document.getElementById("form-servicio");
@@ -211,9 +200,7 @@ async function cargarListas() {
 
   if (modelos) {
     losEquiposModelo = modelos;
-    /* modelos.forEach((eqs) => {
-      losEquiposModelo.push(String(eqs[1]));
-    }); */
+  
 
     let listadoPredictivo = document.getElementById("predictive-list-modelo");
     listadoPredictivo.style.display = "none";
@@ -466,6 +453,45 @@ function predictivoServicio() {
       });
       listadoPredictivo.appendChild(listItem);
       contadorPalabrasServicio++;
+    }
+  });
+
+  if (entradaInput.trim() == "") {
+    listadoPredictivo.style.display = "none";
+  } else {
+    listadoPredictivo.style.display = "block";
+  }
+}
+
+function predictivoCliente() {
+  let clienteInput = document.getElementById("form-cliente");
+  let entradaInput = clienteInput.value.toUpperCase();
+  let listadoPredictivo = document.getElementById("predictive-list-cliente");
+  listadoPredictivo.innerHTML = "";
+
+  losEquiposCliente.forEach((palabra) => {
+    // Solo procesar si hay texto en la entrada
+    if (entradaInput.length === 0) {
+      listadoPredictivo.style.display = "none";
+      return;
+    }
+    let contadorPalabrasCliente = 0;
+
+    if (contadorPalabrasCliente >= 300) {
+      return; //Detengo el procesamiento de datos.
+    }
+
+    if (palabra[1].toUpperCase().includes(entradaInput)) {
+      let listItem = document.createElement("li");
+      listItem.style.width = String(clienteInput.offsetWidth + "px");
+      listadoPredictivo.style.width = String(clienteInput.offsetWidth + "px");
+      listItem.textContent = palabra[1];
+      listItem.addEventListener("click", () => {
+        clienteInput.value = listItem.textContent;
+        listadoPredictivo.style.display = "none";
+      });
+      listadoPredictivo.appendChild(listItem);
+      contadorPalabrasCliente++;
     }
   });
 

@@ -178,7 +178,6 @@ public class Equipo {
 
     //Data para imprimir:
     public String generarTicket(){
-       // String ENLACE = "http://66.97.36.141/biotrust-historial/#/login"; VIEJO-ANTERIOR
         String URL = "https://biotrust-sgem.com/manage-device-history-os";
         String nroSerie = this.getSerie();
         String data = "";
@@ -187,23 +186,114 @@ public class Equipo {
         String MODELO = this.getModelo();
         String IDCLIENTE = this.getClienteide();
         String UBICACION = this.getUbicacion();
+        String SERVICIO = this.getServicio();
 
         String TIPOIDE = this.getTipoequipoide();
         String MARCAIDE = this.getMarcaide();
         String MODELOIDE = this.getModeloide();
 
-        //String ENLACE_AUX = ENLACE + "/" + IDCLIENTE + "/" + TIPO + "/" + MARCA + "/" + MODELO + "/" + nroSerie;
+
+
+        String lineaCliente = "";
+        int linea0 = 300;
+
+        //Tamaño letra cliente
+        int tamanio = 26;
+        int intCli = this.getCliente().length();
+        //Pregunto para saber si achico la letra:
+        if (intCli >= 50){
+            tamanio = 20;
+        }
+
+        //Pregunto si hago en doble fila
+        if (intCli >= 25){
+            String[] auxstr = this.getCliente().split(" ");
+            String firstLine="", secondLine="";
+            for (int i = 0; i < auxstr.length; i++) {
+
+                //Si el tamaño es 26 entonces no se achico
+                //hago 2 lineas con la primera 2 palabras.
+                if(tamanio == 26){
+                    if (i<2){
+                        firstLine += auxstr[i] + " ";
+                    }
+                    if (i>=2){
+                        secondLine += auxstr[i] + " ";
+                    }
+                }else {
+                    if (i<3){
+                        firstLine += auxstr[i] + " ";
+                    }
+                    if (i>=3){
+                        secondLine += auxstr[i] + " ";
+                    }
+                }
+
+            }
+            //Aca es con doble linea:
+            linea0 = 327;
+            int auxlinea0 = linea0-27;
+            lineaCliente=
+                    "^FT" + auxlinea0 + ",357^A0B,26,"+ tamanio +"^FH\\^FD" + firstLine + "^FS\n " +
+                    "^FT" + linea0 + ",357^A0B,26,"+ tamanio +"^FH\\^FD" + secondLine + "^FS\n ";
+
+
+        }else{
+            //Una sola linea y sin achicar:
+            lineaCliente= "^FT" + linea0 + ",357^A0B,26,"+ tamanio +"^FH\\^FD" + this.getCliente() + "^FS\n";
+        }
+
+        int linea1 = linea0+27;
+        int linea2 = linea1+27;
+        int linea3 = linea2+27;
+        int linea4 = linea3+27;
+        int linea5 = linea4+27;
+
+        //Tamaño letra serie
+        int tamanio1 = 26;
+        int intTam1 = this.getSerie().length();
+        //Pregunto para saber si achico la letra:
+        if (intTam1 >= 25){
+            tamanio1 = 20;
+        }
+        //Tamaño letra tipo equipo
+        int tamanio2 = 26;
+        int intTam2 = this.getTipo_equipo().length();
+        //Pregunto para saber si achico la letra:
+        if (intTam2 >= 25){
+            tamanio2 = 20;
+        }
+        //Tamaño letra marca
+        int tamanio3 = 26;
+        int intTam3 = this.getMarca().length();
+        //Pregunto para saber si achico la letra:
+        if (intTam3 >= 18){
+            tamanio3 = 20;
+        }
+        //Tamaño letra modelo
+        int tamanio4 = 26;
+        int intTam4 = this.getModelo().length();
+        //Pregunto para saber si achico la letra:
+        if (intTam4 >= 18){
+            tamanio4 = 20;
+        }
+        //Tamaño letra servicio
+        int tamanio5 = 26;
+        int intTam5 = this.getServicio().length();
+        //Pregunto para saber si achico la letra:
+        if (intTam5 >= 18){
+            tamanio5 = 20;
+        }
+
+
 
         String ENLACEFINAL = URL + "/?idCliente=" + IDCLIENTE + "&idTipo=" +
                 TIPOIDE + "&idFabricante=" + MARCAIDE + "&idModelo=" + MODELOIDE + "&serie=" + nroSerie;
 
-        //String ENLACEFINAL = ENLACE_AUX.replace(" ", "%20");
         //URL NUEVA:
         //https://biotrust-sgem.com/manage-device-history-os/?idCliente=%27idcliente%27&idTipo=%27
         // idtipo%E2%80%99&idFabricante=%27idfabricange%27&idModelo=%27idmodelo%E2%80%99&serie=%27serie%27
 
-       // String IMAGENBTS =
-        //        "^FO380,20^GFA,1270,1270,10,,T03F8,T0FFE,P01E00IF,P01F01IF,P01F03F9F8,P01F03E0F8,P01F03E078,P01F03E07C,:::::::::::P01F03C07C,P01F07C07C,Q0IFC07C,Q0IF807C,Q07FF807C,Q03FF007C,R0FC0078,,Q0F,:::::::::Q0LFC,::::Q0F,L0CJ0F,K03CJ0F,K078J0F,J08L0F,I01M0F,I02I01F00F,K0307F00F,K0F87F80F,J01F87F00FI038,I0E3F07E00B001FF,I0E3EN03FF8,001C1CK03FCIFC,003CM07KFC,003N0JFC7C,N0800JF07C,M03E00F8FF07C,M07E00F07E03C,M0FF00F03E03C,003J0FE00F03E07C,0078I07E00F03E07C,00FJ07C00F03E03C,00FN0F03E03C,:00EN0F03E03C,Q0F03E03C,::M03800F01E03C,00407807E00FJ07C,00E0FC0FE00FJ07C,01E0FC0FE00LFC,::01E0F807C00LFC,01E070038007KF8,008,,::::20C07007801F,21E0F80FC03F8,31E0FC0FE03F8,21E0FC0FE03FC,00E0FC0FE03FC,00C07C0FE03F8,J03807E03F8,M03800E,,::004V08006U018007038N0F8001800707C03C00F01F8,00307C07E03F01F8,J03E07E03F81F8,J01C07E03F81F8,M03E01F01E,N0800C,,:V01,K08P07,J01EN0C06,K0F03C00E01E,K0703F03F03C,M03F03F018,N0E01E,,U01,,S03,N0E01C07,N0701C,,::::::^FS";
 
         String IMAGENBST =
                 "^FO380,20^GFA,1300,1300,10,,:::::::::P01E,::::::::P01F,P01LF,:::P01F,P01E,:::::::P01E007F,T0FF8,Q0E01FFC,P01E03FFE,P01E03E3E,P01E07C1E,P01E07C1F,:::::::::::L0EI01F0781F,K01CJ0F8F81F,Q0IF81F,J04L07FF01F,J08001F007FE01F,K0183F801FC01F,K07C3F8,K0FC3FK01F8,I038F81EK07FC,I078FK01F0FFE,I07M07KF,I06M0JFBF,Q0IFE1F,M01E00FBFC1F,M03F01F0FC1F,M07F01F07C1F,I0EI07F01F07C1F,001EI03E01F07C1F,001EI03C01F07C1F,001CL01F07C1F,:001M01F07C1F,P01F07C0F,P01F07C1F,:K0C03E01F0081F,00383E07E01FI01F,003C3E07F01LF,007C3E07F01LF,007C3E07E01LF,00383E03E00LF,003818018007JFE,,::::041J01800C,04383C03E01F,04383E07E03F8,04383E07F03F8,00383E07F03F8,00181E07F03F8,K0C03E03F,N0800C,,::0018T04,001C08N0CI04,001C1E00800401E,I0E1F03E01F03F,I041F03F03F03F,K0F03F03F03E,M01E03E03C,N0C00C,,:V0C,K06O01C,K078L01818,K0381E01E038,K0181F03E078,N0F03E,,U02,,S06,N060080E,N0703C,,::::::::^FS";
@@ -219,16 +309,51 @@ public class Equipo {
                 "^LS0\n" +
                 "^FT20,345^BQN,2,5\n" +
                 "^FDMA," + ENLACEFINAL + "^FS \n" +
-                "^FT300,357^A0B,26,26^FH\\^FD" + this.getCliente() + "^FS\n" +
-                "^FT327,357^A0B,26,26^FH\\^FD" + nroSerie + "^FS\n" +
-                "^FT355,357^A0B,26,26^FH\\^FD" + TIPO + "^FS\n" +
-                "^FT382,357^A0B,26,26^FH\\^FD" + MARCA + "^FS\n" +
-                "^FT409,357^A0B,26,26^FH\\^FD" + MODELO + "^FS\n" +
-                "^FT436,357^A0B,26,26^FH\\^FD" + UBICACION + "^FS\n" +
+                 lineaCliente +
+                "^FT"+linea1+",357^A0B,26,"+ tamanio1 +"^FH\\^FD" + nroSerie + "^FS\n" +
+                "^FT"+linea2+",357^A0B,26,"+ tamanio2 +"^FH\\^FD" + TIPO + "^FS\n" +
+                "^FT"+linea3+",357^A0B,26,"+ tamanio3 +"^FH\\^FD" + MARCA + "^FS\n" +
+                "^FT"+linea4+",357^A0B,26,"+ tamanio4 +"^FH\\^FD" + MODELO + "^FS\n" +
+                "^FT"+linea5+",357^A0B,26,"+ tamanio5 +"^FH\\^FD" + SERVICIO + "^FS\n" +
 
                 IMAGENBST + "^FS\n" +
                 "^PQ1,0,1,Y^XZ";
 
         return data;
     }
+
+    /*
+    * "^FT327,357^A0B,26,26^FH\\^FD" + nroSerie + "^FS\n" +
+                "^FT355,357^A0B,26,26^FH\\^FD" + TIPO + "^FS\n" +
+                "^FT382,357^A0B,26,26^FH\\^FD" + MARCA + "^FS\n" +
+                "^FT409,357^A0B,26,26^FH\\^FD" + MODELO + "^FS\n" +
+                "^FT436,357^A0B,26,26^FH\\^FD" + UBICACION + "^FS\n" +
+    * */
+
 }
+
+/*
+Dimensiones etiqueta: 60mm x 46.1mm
+
+CODIGO EN ZPL PURO copiado en: 24/01/25
+\u0010~~CD,~CC^~CT~
+^XA~TA000~JSN^LT0^MNW^MTD^PON^PMN^LH0,0^JMA^PR2,2~SD15^JUS^LRN^CI0^XZ
+^XA
+^MMT
+^PW480
+^LL0360
+^LS0
+^FT20,345^BQN,2,5
+^FDMA,https://biotrust-sgem.com/manage-device-history-os/?idCliente=idcliente&idTipo=idtipo&idFabricante=idfabricante&idModelo=idmodelo&serie=serie^FS
+^FT300,357^A0B,26,26^FH\^FDcliente^FS
+^FT327,357^A0B,26,26^FH\^FDnroSerie^FS
+^FT355,357^A0B,26,26^FH\^FDTIPO^FS
+^FT382,357^A0B,26,26^FH\^FDMARCA^FS
+^FT409,357^A0B,26,26^FH\^FDMODELO ^FS
+^FT436,357^A0B,26,26^FH\^FDUBICACION ^FS
+
+^FO380,20^GFA,1300,1300,10,,:::::::::P01E,::::::::P01F,P01LF,:::P01F,P01E,:::::::P01E007F,T0FF8,Q0E01FFC,P01E03FFE,P01E03E3E,P01E07C1E,P01E07C1F,:::::::::::L0EI01F0781F,K01CJ0F8F81F,Q0IF81F,J04L07FF01F,J08001F007FE01F,K0183F801FC01F,K07C3F8,K0FC3FK01F8,I038F81EK07FC,I078FK01F0FFE,I07M07KF,I06M0JFBF,Q0IFE1F,M01E00FBFC1F,M03F01F0FC1F,M07F01F07C1F,I0EI07F01F07C1F,001EI03E01F07C1F,001EI03C01F07C1F,001CL01F07C1F,:001M01F07C1F,P01F07C0F,P01F07C1F,:K0C03E01F0081F,00383E07E01FI01F,003C3E07F01LF,007C3E07F01LF,007C3E07E01LF,00383E03E00LF,003818018007JFE,,::::041J01800C,04383C03E01F,04383E07E03F8,04383E07F03F8,00383E07F03F8,00181E07F03F8,K0C03E03F,N0800C,,::0018T04,001C08N0CI04,001C1E00800401E,I0E1F03E01F03F,I041F03F03F03F,K0F03F03F03E,M01E03E03C,N0C00C,,:V0C,K06O01C,K078L01818,K0381E01E038,K0181F03E078,N0F03E,,U02,,S06,N060080E,N0703C,,::::::::^FS
+^PQ1,0,1,Y^XZ
+
+
+* */
