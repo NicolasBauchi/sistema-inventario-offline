@@ -48,7 +48,7 @@ public class ImprimirEtiqueta {
             Process process = builder.start();
             process.waitFor();
             System.out.println("El ticket " + fileName + " ha sido enviado a imprimir.");
-            System.out.println("builder: " + builder.toString());
+
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }

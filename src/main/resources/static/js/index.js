@@ -32,7 +32,7 @@ function eventoFormulario() {
 }
 
 async function registrarEquipo(e) {
-  console.log("cargo funct registrarEquipo");
+  //console.log("cargo funct registrarEquipo");
   e.preventDefault();
 
   let datos = {};
@@ -104,6 +104,8 @@ async function registrarEquipo(e) {
     });
     if (resp.ok) {
       alert(datos.serie + " cargado con éxito!");
+      console.log("Se cargó con éxito el equipo.");
+      
 
       //Borrar algunos campos para hacer más rápida la carga de datos:
       document.getElementById("form-nroserie").value = "";
@@ -323,7 +325,7 @@ function predictivoTipoEquipo() {
       return; //Detengo el procesamiento de datos.
     }
 
-    if (palabra[1].toUpperCase().startsWith(entradaInput)) {
+    if (palabra[1].toUpperCase().includes(entradaInput)) {
       let listItem = document.createElement("li");
       listItem.style.width = String(tipoequipoInput.offsetWidth + "px");
       listadoPredictivo.style.width = String(
@@ -364,7 +366,7 @@ function predictivoModelo() {
       return; //Detengo el procesamiento de datos.
     }
 
-    if (palabra[1].toUpperCase().startsWith(entradaInput)) {
+    if (palabra[1].toUpperCase().includes(entradaInput)) {
       let listItem = document.createElement("li");
       listItem.style.width = String(modeloInput.offsetWidth + "px");
       listadoPredictivo.style.width = String(modeloInput.offsetWidth + "px");
@@ -403,7 +405,7 @@ function predictivoMarca() {
       return; //Detengo el procesamiento de datos.
     }
 
-    if (palabra[1].toUpperCase().startsWith(entradaInput)) {
+    if (palabra[1].toUpperCase().includes(entradaInput)) {
       let listItem = document.createElement("li");
       listItem.style.width = String(marcaInput.offsetWidth + "px");
       listadoPredictivo.style.width = String(marcaInput.offsetWidth + "px");
@@ -442,7 +444,7 @@ function predictivoServicio() {
       return; //Detengo el procesamiento de datos.
     }
 
-    if (palabra[1].toUpperCase().startsWith(entradaInput)) {
+    if (palabra[1].toUpperCase().includes(entradaInput)) {
       let listItem = document.createElement("li");
       listItem.style.width = String(servicioInput.offsetWidth + "px");
       listadoPredictivo.style.width = String(servicioInput.offsetWidth + "px");
